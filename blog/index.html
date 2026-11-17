@@ -4,15 +4,15 @@ nav: blog
 title: Blog
 description: Notes on LLM architecture, pre-training and sparse attention — and whatever else I'm thinking about.
 ---
-<section class="blog-hero">
-  <div class="wrap-narrow">
-    <p class="eyebrow">Blog · {{ site.posts.size }} post{% if site.posts.size != 1 %}s{% endif %}</p>
-    <h1 class="blog-title">Writing</h1>
-    <p class="blog-lede">{{ page.description }} <a href="{{ '/feed.xml' | relative_url }}" class="inline-rss">{% include icon.html name="rss" %}RSS</a></p>
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">{{ site.posts.size }} post{% if site.posts.size != 1 %}s{% endif %} · <a href="{{ '/feed.xml' | relative_url }}">RSS</a></p>
+    <h1 class="page-title">Blog</h1>
+    <p class="page-lede">{{ page.description }}</p>
   </div>
 </section>
 
-<section class="wrap-narrow blog-list">
+<section class="wrap blog-list">
   {% assign by_year = site.posts | group_by_exp: "p", "p.date | date: '%Y'" %}
   {% for y in by_year %}
   <div class="blog-year">
@@ -21,7 +21,7 @@ description: Notes on LLM architecture, pre-training and sparse attention — an
       {% for post in y.items %}
       <li>
         <a href="{{ post.url | relative_url }}" class="blog-row">
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d' }}</time>
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d' }}</time>
           <span class="blog-row-main">
             <span class="blog-row-title">{{ post.title }}</span>
             <span class="blog-row-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</span>
@@ -33,5 +33,11 @@ description: Notes on LLM architecture, pre-training and sparse attention — an
     </ol>
   </div>
   {% endfor %}
-  {% if site.posts.size == 0 %}<p class="empty">Nothing here yet.</p>{% endif %}
+  {% if site.posts.size == 0 %}
+  <div class="post-card post-card-dark post-empty blog-empty">
+    <time>Coming soon</time>
+    <h3>The first post is on its way.</h3>
+    <p>Subscribe via <a href="{{ '/feed.xml' | relative_url }}">RSS</a> to get it when it lands.</p>
+  </div>
+  {% endif %}
 </section>

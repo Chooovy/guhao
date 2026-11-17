@@ -1,18 +1,13 @@
 {%- assign home = '/' | relative_url -%}
 <header class="topbar" id="topbar">
   <div class="wrap topbar-inner">
-    <a class="brand" href="{{ home }}" aria-label="{{ site.author.name }} — home">
-      <span class="brand-name">{{ site.author.name }}</span><span class="brand-dot" aria-hidden="true">.</span>
-    </a>
+    <a class="brand" href="{{ home }}">{{ site.author.name }}</a>
     <nav class="nav" aria-label="Main">
-      <a href="{{ home }}#now" {% if page.nav == 'home' %}data-spy{% endif %}>News</a>
       <a href="{{ home }}#research" {% if page.nav == 'home' %}data-spy{% endif %}>Research</a>
       <a href="{{ home }}#publications" {% if page.nav == 'home' %}data-spy{% endif %}>Publications</a>
+      <a href="{{ home }}#news" {% if page.nav == 'home' %}data-spy{% endif %}>News</a>
       <a href="{{ '/blog/' | relative_url }}" {% if page.nav == 'blog' %}aria-current="page"{% endif %}>Blog</a>
-      <button class="theme-btn" id="theme-btn" type="button" aria-label="Toggle dark mode">
-        <span class="when-light">{% include icon.html name="moon" %}</span>
-        <span class="when-dark">{% include icon.html name="sun" %}</span>
-      </button>
     </nav>
+    <a class="pill pill-dark pill-sm nav-cta" href="#contact">Get in touch</a>
   </div>
 </header>
