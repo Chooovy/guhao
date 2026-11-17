@@ -21,11 +21,14 @@ author:
   affiliation: HKUST
   affiliation_full: The Hong Kong University of Science and Technology
   affiliation_url: https://hkust.edu.hk/
-  email: ""                      # TODO e.g. hgu@connect.ust.hk  (hidden while empty)
+  email: marcusguhao@gmail.com
   cv: ""                         # TODO e.g. /assets/file/cv.pdf (hidden while empty)
   scholar: https://scholar.google.com/citations?user=ozg7axcAAAAJ
   github: https://github.com/Chooovy
-  twitter: ""                    # optional
+  twitter: https://x.com/guhao05612970
+  twitter_handle: "@guhao05612970"
+  wechat: MarkusFits
+  wechat_qr: /assets/img/wechat-qr.jpg
   linkedin: ""                   # optional
   zhihu: ""                      # optional
 

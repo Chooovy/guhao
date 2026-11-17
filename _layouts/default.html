@@ -10,6 +10,14 @@
 {{ content }}
 </main>
 {% include footer.html %}
+<dialog class="qr" id="wechat-dialog" aria-label="WeChat">
+  <form method="dialog"><button class="qr-close" aria-label="Close">×</button></form>
+  <img src="{{ site.author.wechat_qr | relative_url }}" alt="WeChat QR code for {{ site.author.wechat }}" width="456" height="677" loading="lazy">
+  <div class="qr-foot">
+    <span>WeChat ID <b>{{ site.author.wechat }}</b></span>
+    <button class="pill pill-dark pill-xs" type="button" id="wechat-copy">Copy ID</button>
+  </div>
+</dialog>
 <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 </body>
 </html>

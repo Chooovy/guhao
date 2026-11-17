@@ -8,6 +8,6 @@
       <a href="{{ home }}#news" {% if page.nav == 'home' %}data-spy{% endif %}>News</a>
       <a href="{{ '/blog/' | relative_url }}" {% if page.nav == 'blog' %}aria-current="page"{% endif %}>Blog</a>
     </nav>
-    <a class="pill pill-dark pill-sm nav-cta" href="#contact">Get in touch</a>
+    <a class="pill pill-dark pill-sm nav-cta" href="{{ home }}#contact">Get in touch</a>
   </div>
 </header>
