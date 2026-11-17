@@ -6,8 +6,8 @@
 
 title: Hao Gu
 description: >-
-  Hao Gu works on efficient large language models at HKUST:
-  sparse attention, KV-cache eviction, MoE compression and low-bit quantization.
+  Hao Gu is a Ph.D. student at HKUST and a research intern at Tencent Hunyuan,
+  working on LLM architecture and pre-training, currently sparse attention.
 
 # NOTE: a GitHub Pages *user site* is served at <github-username>.github.io.
 # Your username is "Chooovy", so the repo must be named chooovy.github.io

@@ -1,9 +1,8 @@
 {%- assign home = '/' | relative_url -%}
 <header class="topbar" id="topbar">
   <div class="wrap topbar-inner">
-    <a class="brand" href="{{ home }}" aria-label="Home">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <span class="brand-name">{{ site.author.short }}</span>
+    <a class="brand" href="{{ home }}" aria-label="{{ site.author.name }} — home">
+      <span class="brand-name">{{ site.author.name }}</span><span class="brand-dot" aria-hidden="true">.</span>
     </a>
     <nav class="nav" aria-label="Main">
       <a href="{{ home }}#now" {% if page.nav == 'home' %}data-spy{% endif %}>News</a>

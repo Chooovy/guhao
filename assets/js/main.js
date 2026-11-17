@@ -45,31 +45,33 @@
     more.textContent = open ? 'Show less ↑' : 'Show all ' + log.children.length + ' ↓';
   });
 
-  /* ---------- publication filters ---------- */
+  /* ---------- publication filters: selected (default) · all · by theme ---------- */
   var pubs = $$('.pub'), groups = $$('.year-group'), chips = $$('.chip[data-filter]');
-  var firstOnly = $('#first-only'), emptyMsg = $('#pubs-empty');
-  var state = { theme: 'all', first: false };
+  var emptyMsg = $('#pubs-empty'), allBtn = $('#pubs-all');
+  var state = 'selected';
   function applyFilter() {
     var shown = 0;
     pubs.forEach(function (p) {
-      var okT = state.theme === 'all' || (' ' + p.dataset.themes + ' ').indexOf(' ' + state.theme + ' ') > -1;
-      var okF = !state.first || p.dataset.first === '1';
-      p.hidden = !(okT && okF);
-      if (!p.hidden) shown++;
+      var ok = state === 'all' ||
+        (state === 'selected' ? p.dataset.selected === '1'
+                              : (' ' + p.dataset.themes + ' ').indexOf(' ' + state + ' ') > -1);
+      p.hidden = !ok;
+      if (ok) shown++;
     });
     groups.forEach(function (g) { g.hidden = !$$('.pub:not([hidden])', g).length; });
     chips.forEach(function (c) {
-      var on = c.dataset.filter === state.theme;
+      var on = c.dataset.filter === state;
       c.classList.toggle('is-on', on);
       c.setAttribute('aria-pressed', on);
     });
     if (emptyMsg) emptyMsg.hidden = shown > 0;
+    if (allBtn) allBtn.hidden = state === 'all';
   }
-  chips.forEach(function (c) { c.addEventListener('click', function () { state.theme = c.dataset.filter; applyFilter(); }); });
-  if (firstOnly) firstOnly.addEventListener('change', function () { state.first = firstOnly.checked; applyFilter(); });
+  chips.forEach(function (c) { c.addEventListener('click', function () { state = c.dataset.filter; applyFilter(); }); });
+  if (allBtn) allBtn.addEventListener('click', function () { state = 'all'; applyFilter(); });
   $$('[data-goto]').forEach(function (b) {
     b.addEventListener('click', function () {
-      state.theme = b.dataset.goto; applyFilter();
+      state = b.dataset.goto; applyFilter();
       var sec = document.getElementById('publications');
       if (sec) sec.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
     });

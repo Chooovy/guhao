@@ -11,7 +11,3 @@
   name: Low-bit Models
   sub: Quantization & QAT
   blurb: Down to sub-1-bit weights, and quantization-aware RL that stays stable.
-- id: reason
-  name: Efficient Reasoning
-  sub: Shorter thoughts, steadier training
-  blurb: Making reasoning models think less redundantly without thinking worse.

@@ -4,21 +4,19 @@ nav: home
 ---
 {%- assign pubs = site.data.publications -%}
 {%- assign stats = site.scholar_stats -%}
-{%- assign first_n = 0 -%}{%- for p in pubs -%}{%- if p.lead -%}{%- assign first_n = first_n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+{%- assign sel_n = 0 -%}{%- for p in pubs -%}{%- if p.selected -%}{%- assign sel_n = sel_n | plus: 1 -%}{%- endif -%}{%- endfor -%}
 
 <!-- ================= HERO ================= -->
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-main">
-      <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>Now · KV-cache eviction &amp; sparse attention</p>
+      <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>Now · Sparse attention @ Tencent Hunyuan</p>
       <h1 class="hero-name">Hao Gu</h1>
-      <p class="hero-tag">Making large language models <em>smaller</em>, <em>faster</em>, and able to read <em>longer</em>.</p>
+      <p class="hero-tag">Building language models that know <em>where to look</em> — across very <em>long</em> contexts.</p>
 
       <div class="hero-bio">
-        <!-- TODO: add your position / advisor / education, e.g.
-             "I'm a Ph.D. student at HKUST, advised by Prof. X. Before that I received my B.S. from Y." -->
-        <p>I'm a researcher at <a href="{{ site.author.affiliation_url }}">The Hong Kong University of Science and Technology (HKUST)</a>, working on efficient large language models. My work keeps asking one question — <i>how much of a model, its memory and its compute do we actually need?</i> — and answers it with sparse attention that scales toward infinite context, KV caches that learn what to forget, mixture-of-experts models compressed by merging and decomposition, and weights quantized down to sub-1-bit.</p>
-        <p>Recently I led <a href="https://arxiv.org/abs/2506.12040">BTC-LLM</a> (ACL 2026), <a href="https://arxiv.org/abs/2604.07853">QaRL</a> (Findings of ACL 2026), <a href="https://arxiv.org/abs/2502.17298">D²-MoE</a>, and our study of the <a href="https://arxiv.org/abs/2611.07605">gating mechanism of KV-cache eviction</a>. I also contributed to <a href="https://github.com/Tencent-Hunyuan/HiLS-Attention">HiLS-Attention</a>, hierarchical sparse attention open-sourced by Tencent Hunyuan.</p>
+        <p>I'm a Ph.D. student at <a href="{{ site.author.affiliation_url }}">The Hong Kong University of Science and Technology (HKUST)</a> and a research intern at <a href="https://github.com/Tencent-Hunyuan">Tencent Hunyuan</a>.</p>
+        <p>I work on the <b>architecture</b> and <b>pre-training</b> of large language models. These days I mostly think about <b>sparse attention</b>: how a model can decide which parts of its context deserve compute, so that attention scales toward very long contexts without giving up quality.</p>
       </div>
 
       <div class="links">
@@ -60,10 +58,10 @@ nav: home
       </dl>
       <p class="stats-note">via <a href="{{ site.author.scholar }}" target="_blank" rel="noopener">Google Scholar</a> · {{ stats.updated }}</p>
 
-      <div class="aff">
-        <span class="aff-logo" aria-hidden="true">HK<br>UST</span>
-        <span><b>{{ site.author.affiliation_full }}</b>Efficient LLMs · Hong Kong, China</span>
-      </div>
+      <ul class="aff">
+        <li><img class="aff-logo" src="{{ '/assets/img/logos/hkust.svg' | relative_url }}" alt="" width="38" height="38"><span><b>HKUST</b>Ph.D. student</span></li>
+        <li><img class="aff-logo" src="{{ '/assets/img/logos/hunyuan.png' | relative_url }}" alt="" width="38" height="38"><span><b>Tencent Hunyuan</b>Research intern</span></li>
+      </ul>
     </aside>
   </div>
 </section>
@@ -117,7 +115,7 @@ nav: home
     <header class="sec-head">
       <span class="sec-idx">03</span>
       <h2 class="sec-title">Research</h2>
-      <p class="sec-lede">Four threads, one goal: spend fewer bits, FLOPs and bytes of memory per useful token.</p>
+      <p class="sec-lede">How attention, experts and precision shape what a model can learn — and what it costs to run.</p>
     </header>
     <div class="themes">
       {% for t in site.data.themes %}
@@ -145,29 +143,27 @@ nav: home
 
     <div class="filters" role="toolbar" aria-label="Filter publications">
       <div class="chips">
-        <button type="button" class="chip is-on" data-filter="all">All <i>{{ pubs.size }}</i></button>
+        <button type="button" class="chip is-on" data-filter="selected">Selected <i>{{ sel_n }}</i></button>
+        <button type="button" class="chip" data-filter="all">All <i>{{ pubs.size }}</i></button>
+        <span class="chips-sep" aria-hidden="true"></span>
         {% for t in site.data.themes %}
         {%- assign n = 0 -%}{%- for p in pubs -%}{%- if p.themes contains t.id -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
         <button type="button" class="chip" data-filter="{{ t.id }}">{{ t.name }} <i>{{ n }}</i></button>
         {% endfor %}
       </div>
-      <label class="switch">
-        <input type="checkbox" id="first-only">
-        <span class="switch-ui" aria-hidden="true"></span>
-        First-author only <i>{{ first_n }}</i>
-      </label>
     </div>
 
     {% assign groups = pubs | group_by: "year" %}
     <div class="pubs" id="pubs">
       {% for g in groups %}
-      <div class="year-group">
+      {%- assign g_sel = false -%}{%- for p in g.items -%}{%- if p.selected -%}{%- assign g_sel = true -%}{%- endif -%}{%- endfor -%}
+      <div class="year-group"{% unless g_sel %} hidden{% endunless %}>
         <div class="year">{% if g.name == 0 or g.name == "0" %}Preprints{% else %}{{ g.name }}{% endif %}</div>
         <ol class="pub-list">
           {% for p in g.items %}
           {%- assign is_pre = false -%}
           {%- if p.venue contains "arXiv" or p.venue contains "Preprint" -%}{%- assign is_pre = true -%}{%- endif -%}
-          <li class="pub{% if p.lead %} is-first{% endif %}" data-themes="{{ p.themes | join: ' ' }}" data-first="{% if p.lead %}1{% else %}0{% endif %}">
+          <li class="pub{% if p.lead %} is-first{% endif %}" data-themes="{{ p.themes | join: ' ' }}" data-selected="{% if p.selected %}1{% else %}0{% endif %}"{% unless p.selected %} hidden{% endunless %}>
             <div class="pub-venue">
               <span class="badge{% if is_pre %} badge-pre{% endif %}" title="{{ p.venue_full }}">{{ p.venue }}</span>
             </div>
@@ -190,6 +186,7 @@ nav: home
       </div>
       {% endfor %}
       <p class="empty" id="pubs-empty" hidden>Nothing here yet — try another filter.</p>
+      <button class="more pubs-more" id="pubs-all" type="button">Show all {{ pubs.size }} papers ↓</button>
     </div>
   </div>
 </section>

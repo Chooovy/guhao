@@ -3,11 +3,13 @@
 #  fields:
 #    title, authors ("H. Gu" is auto-highlighted), venue (badge), venue_full,
 #    year (use "Preprint" group via year: 0), themes (long | moe | quant | reason),
-#    lead: true for first-author, cites, links: {paper, code, ...}
+#    lead: true for first-author, selected: true to show under "Selected",
+#    cites, links: {paper, code, ...}
 #  Order inside a year = display order.
 # ------------------------------------------------------------
 
 - title: "The Gating Mechanism of KV Cache Eviction"
+  selected: true
   authors: "H. Gu, X. Yang, Z. Li, L. Zhu, J. Yang, Q. Zhu, D. Li, J. Zhang, Z. Kou, H. Wang, et al."
   venue: arXiv
   venue_full: "arXiv:2611.07605"
@@ -19,6 +21,7 @@
     code: https://github.com/Chooovy/IndexMem
 
 - title: "SAS: Simple Attention Sparsification via End-to-End Optimization of Context Ranking"
+  selected: true
   authors: "Z. Li, L. Zhu, H. Gu, X. Hu, Y. Wang, H. Mi, S. Han, L. Liang, Z. Guo"
   venue: arXiv
   venue_full: "arXiv:2609.13141"
@@ -27,6 +30,7 @@
   cites: 2
   links:
     paper: https://arxiv.org/abs/2609.13141
+    code: https://github.com/Tencent-Hunyuan/Simple-Attention-Sparsification
 
 - title: "OMP-MoE: Efficient Expert Pruning for Mixture-of-Experts LLMs via Orthogonal Matching Pursuit"
   authors: "D. Li, L. Li, Q. Zhu, H. Gu, B. Liu, S. Han, Y. Guo"
@@ -49,6 +53,7 @@
     paper: https://arxiv.org/abs/2608.04771
 
 - title: "Hierarchical Sparse Attention Done Right: Toward Infinite Context Modeling"
+  selected: true
   authors: "X. Hu, X. Wei, H. Gu, M. Zhang, T. Liang, H. Li, L. Zhu, Y. Wang, S. Han, Y. Bai, et al."
   venue: arXiv
   venue_full: "arXiv:2607.02980"
@@ -141,6 +146,7 @@
   links: {}
 
 - title: "D²-MoE: Delta Decompression for MoE-based LLMs Compression"
+  selected: true
   authors: "H. Gu, W. Li, L. Li, Q. Zhu, M. Lee, S. Sun, W. Xue, Y. Guo"
   venue: arXiv
   venue_full: "arXiv:2502.17298"
