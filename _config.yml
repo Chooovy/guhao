@@ -9,11 +9,11 @@ description: >-
   Hao Gu is a Ph.D. student at HKUST and a research intern at Tencent Hunyuan,
   working on LLM architecture and pre-training, currently sparse attention.
 
-# NOTE: a GitHub Pages *user site* is served at <github-username>.github.io.
-# Your username is "Chooovy", so the repo must be named chooovy.github.io
-# unless you rename the account to "marcusguhao" (or attach a custom domain).
-url: "https://marcusguhao.github.io"
-baseurl: ""
+# Served as a GitHub Pages *project site* from the repo Chooovy/guhao
+#   → https://chooovy.github.io/guhao/
+# If you later attach a custom domain, set url to it and baseurl to "".
+url: "https://chooovy.github.io"
+baseurl: "/guhao"
 
 author:
   name: Hao Gu

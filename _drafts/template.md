@@ -23,6 +23,6 @@ def hello():
     print("code blocks are highlighted")
 ```
 
-![An image](/assets/img/blog/your-image.png)
+![An image]({{ '/assets/img/blog/your-image.png' | relative_url }})
 
 <div class="callout">A highlighted callout box.</div>
