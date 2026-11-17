@@ -16,7 +16,7 @@ nav: home
     <h1 class="hero-name">Hao Gu</h1>
     <p class="hero-lede">I work on the architecture and pre&#8209;training of large language models — currently, <b>sparse&nbsp;attention</b>.</p>
     <div class="actions">
-      <a class="pill pill-dark" href="mailto:{{ site.author.email }}">Get in touch</a>
+      <a class="pill pill-dark" href="mailto:{{ site.author.email }}">{% include icon.html name="mail" %}Email</a>
       <a class="pill pill-line" href="{{ site.author.scholar }}" target="_blank" rel="noopener">{% include icon.html name="scholar" %}Scholar</a>
       <a class="pill pill-line" href="{{ site.author.github }}" target="_blank" rel="noopener">{% include icon.html name="github" %}GitHub</a>
       <a class="pill pill-line" href="{{ site.author.twitter }}" target="_blank" rel="noopener">{% include icon.html name="x" %}X</a>
@@ -35,18 +35,6 @@ nav: home
       <img src="{{ '/assets/img/logos/hunyuan.png' | relative_url }}" alt="" width="44" height="44">
       <span><b>Tencent Hunyuan</b>Research intern</span>
     </div>
-    <a class="fact fact-link" href="mailto:{{ site.author.email }}">
-      <span class="fact-ico">{% include icon.html name="mail" %}</span>
-      <span><b>Email</b>{{ site.author.email }}</span>
-    </a>
-    <a class="fact fact-link" href="{{ site.author.twitter }}" target="_blank" rel="noopener">
-      <span class="fact-ico">{% include icon.html name="x" %}</span>
-      <span><b>X</b>{{ site.author.twitter_handle }}</span>
-    </a>
-    <button class="fact fact-link" type="button" data-wechat>
-      <span class="fact-ico">{% include icon.html name="wechat" %}</span>
-      <span><b>WeChat</b>{{ site.author.wechat }}</span>
-    </button>
   </div>
 </section>
 
