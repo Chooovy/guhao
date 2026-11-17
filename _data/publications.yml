@@ -1,0 +1,180 @@
+# ------------------------------------------------------------
+#  Publications — source: Google Scholar (Nov 2026)
+#  fields:
+#    title, authors ("H. Gu" is auto-highlighted), venue (badge), venue_full,
+#    year (use "Preprint" group via year: 0), themes (long | moe | quant | reason),
+#    lead: true for first-author, cites, links: {paper, code, ...}
+#  Order inside a year = display order.
+# ------------------------------------------------------------
+
+- title: "The Gating Mechanism of KV Cache Eviction"
+  authors: "H. Gu, X. Yang, Z. Li, L. Zhu, J. Yang, Q. Zhu, D. Li, J. Zhang, Z. Kou, H. Wang, et al."
+  venue: arXiv
+  venue_full: "arXiv:2611.07605"
+  year: 2026
+  themes: [long]
+  lead: true
+  links:
+    paper: https://arxiv.org/abs/2611.07605
+    code: https://github.com/Chooovy/IndexMem
+
+- title: "SAS: Simple Attention Sparsification via End-to-End Optimization of Context Ranking"
+  authors: "Z. Li, L. Zhu, H. Gu, X. Hu, Y. Wang, H. Mi, S. Han, L. Liang, Z. Guo"
+  venue: arXiv
+  venue_full: "arXiv:2609.13141"
+  year: 2026
+  themes: [long]
+  cites: 2
+  links:
+    paper: https://arxiv.org/abs/2609.13141
+
+- title: "OMP-MoE: Efficient Expert Pruning for Mixture-of-Experts LLMs via Orthogonal Matching Pursuit"
+  authors: "D. Li, L. Li, Q. Zhu, H. Gu, B. Liu, S. Han, Y. Guo"
+  venue: arXiv
+  venue_full: "arXiv:2609.31631"
+  year: 2026
+  themes: [moe]
+  cites: 1
+  links:
+    paper: https://arxiv.org/abs/2609.31631
+
+- title: "Fewer Tokens, Smaller Cache: Reward-Coordinated Efficient Reasoning"
+  authors: "Q. Zhu, D. Li, P. Cheng, T. Chen, J. Wang, R. Shen, H. Gu, S. Lin, Z. Liu, J. Liu, et al."
+  venue: arXiv
+  venue_full: "arXiv:2608.04771"
+  year: 2026
+  themes: [reason, long]
+  cites: 1
+  links:
+    paper: https://arxiv.org/abs/2608.04771
+
+- title: "Hierarchical Sparse Attention Done Right: Toward Infinite Context Modeling"
+  authors: "X. Hu, X. Wei, H. Gu, M. Zhang, T. Liang, H. Li, L. Zhu, Y. Wang, S. Han, Y. Bai, et al."
+  venue: arXiv
+  venue_full: "arXiv:2607.02980"
+  year: 2026
+  themes: [long]
+  cites: 15
+  stars: "150+"
+  links:
+    paper: https://arxiv.org/abs/2607.02980
+    code: https://github.com/Tencent-Hunyuan/HiLS-Attention
+
+- title: "IndexMem: Learned KV-Cache Eviction with Latent Memory for Long-Context LLM Inference"
+  authors: "X. Yang, H. Gu, B. Xu, L. Li, B. Liu, J. Liu, Q. Zhu, Y. Guo, S. Han"
+  venue: arXiv
+  venue_full: "arXiv:2605.25475"
+  year: 2026
+  themes: [long]
+  cites: 8
+  links:
+    paper: https://arxiv.org/abs/2605.25475
+
+- title: "BTC-LLM: Efficient Sub-1-Bit LLM Quantization via Learnable Transformation and Binary Codebook"
+  authors: "H. Gu, L. Li, H. Wang, L. Wang, Z. Wang, B. Liu, J. Liu, Q. Zhu, S. Han, Y. Guo"
+  venue: ACL 2026
+  venue_full: "Annual Meeting of the Association for Computational Linguistics (ACL), 2026"
+  year: 2026
+  themes: [quant]
+  lead: true
+  cites: 9
+  links:
+    paper: https://arxiv.org/abs/2506.12040
+
+- title: "QaRL: Rollout-Aligned Quantization-Aware RL for Fast and Stable Training under Training–Inference Mismatch"
+  authors: "H. Gu, H. Wang, J. Liu, L. Li, Q. Zhu, B. Liu, B. Xu, L. Wang, X. Yang, S. Lin, et al."
+  venue: ACL 2026 Findings
+  venue_full: "Findings of the Association for Computational Linguistics: ACL 2026"
+  year: 2026
+  themes: [quant, reason]
+  lead: true
+  cites: 18
+  links:
+    paper: https://arxiv.org/abs/2604.07853
+
+- title: "Learning While Staying Curious: Entropy-Preserving Supervised Fine-Tuning via Adaptive Self-Distillation for Large Reasoning Models"
+  authors: "H. Wang, H. Gu, H. Piao, K. Gong, Y. Ye, X. Yue, S. Han, Y. Guo, D. Wu"
+  venue: ACL 2026
+  venue_full: "Annual Meeting of the Association for Computational Linguistics (ACL), 2026"
+  year: 2026
+  themes: [reason]
+  cites: 11
+  links:
+    paper: https://arxiv.org/abs/2602.02244
+
+- title: "Bit-by-Bit: Progressive QAT Strategy with Outlier Channel Splitting for Stable Low-Bit LLMs"
+  authors: "B. Xu, H. Gu, L. Li, H. Wang, B. Liu, J. Liu, Q. Zhu, X. Yang, C. Li, S. Han, Y. Guo"
+  venue: ACL 2026
+  venue_full: "Annual Meeting of the Association for Computational Linguistics (ACL), 2026"
+  year: 2026
+  themes: [quant]
+  cites: 3
+  links:
+    paper: https://arxiv.org/abs/2604.07888
+
+- title: "Adaptive Spatial and Temporal Redundancy Optimization for Efficient Reasoning in Large Language Models"
+  authors: "T. Chen, P. Cheng, Q. Zhu, J. Wang, B. Liu, H. Gu, R. Shen, X. Hou, S. Han, et al."
+  venue: ACL 2026
+  venue_full: "Annual Meeting of the Association for Computational Linguistics (ACL), 2026"
+  year: 2026
+  themes: [reason]
+  cites: 3
+  links: {}
+
+- title: "Sub-MoE: Efficient Mixture-of-Expert LLMs Compression via Subspace Expert Merging"
+  authors: "L. Li, Q. Zhu, J. Wang, X. Qin, W. Li, H. Gu, S. Han, Y. Guo"
+  venue: AAAI 2026
+  venue_full: "AAAI Conference on Artificial Intelligence, 2026"
+  year: 2026
+  themes: [moe]
+  cites: 51
+  links:
+    paper: https://arxiv.org/abs/2506.23266
+
+- title: "Outlier Matters: Efficient Long-to-Short Reasoning via Outlier-Guided Model Merging"
+  authors: "Q. Zhu, D. Li, L. Li, X. Qin, W. Li, H. Gu, H. Xu, S. Han, Y. Guo"
+  venue: AAAI 2026
+  venue_full: "AAAI Conference on Artificial Intelligence, 2026"
+  year: 2026
+  themes: [reason]
+  cites: 5
+  links: {}
+
+- title: "D²-MoE: Delta Decompression for MoE-based LLMs Compression"
+  authors: "H. Gu, W. Li, L. Li, Q. Zhu, M. Lee, S. Sun, W. Xue, Y. Guo"
+  venue: arXiv
+  venue_full: "arXiv:2502.17298"
+  year: 2025
+  themes: [moe]
+  lead: true
+  cites: 63
+  stars: "80+"
+  links:
+    paper: https://arxiv.org/abs/2502.17298
+    code: https://github.com/lliai/D2MoE
+
+- title: "Structured Mixture-of-Experts LLMs Compression via Singular Value Decomposition"
+  authors: "W. Li, L. Li, Y.L. Huang, M.G. Lee, S. Sun, W. Xue, Y. Guo"
+  venue: Preprint
+  venue_full: "2025"
+  year: 2025
+  themes: [moe]
+  cites: 46
+  links: {}
+
+- title: "Drop or Merge? Hybrid MoE LLMs Compressors via Metric-Driven Adaptive Allocation"
+  authors: "L. Li, D. Li, Q. Zhu, J. Wang, X. Qin, W. Li, H. Gu, S. Han, Y. Guo"
+  venue: Preprint
+  venue_full: "Preprint"
+  year: 0
+  themes: [moe]
+  cites: 1
+  links: {}
+
+- title: "Light-Search: Reducing Retrieval Cost in RAG via Curriculum-Based Policy Optimization"
+  authors: "S. Lin, J. Liu, Y. Chen, W. Zhang, H.P. Zou, H. Gu, Q. Zhu, X. Liu, W. Xue, Y. Guo"
+  venue: Preprint
+  venue_full: "Preprint"
+  year: 0
+  themes: [reason]
+  links: {}

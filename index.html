@@ -1,0 +1,195 @@
+---
+layout: default
+nav: home
+---
+{%- assign pubs = site.data.publications -%}
+{%- assign stats = site.scholar_stats -%}
+{%- assign first_n = 0 -%}{%- for p in pubs -%}{%- if p.lead -%}{%- assign first_n = first_n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-main">
+      <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>Now · KV-cache eviction &amp; sparse attention</p>
+      <h1 class="hero-name">Hao Gu</h1>
+      <p class="hero-tag">Making large language models <em>smaller</em>, <em>faster</em>, and able to read <em>longer</em>.</p>
+
+      <div class="hero-bio">
+        <!-- TODO: add your position / advisor / education, e.g.
+             "I'm a Ph.D. student at HKUST, advised by Prof. X. Before that I received my B.S. from Y." -->
+        <p>I'm a researcher at <a href="{{ site.author.affiliation_url }}">The Hong Kong University of Science and Technology (HKUST)</a>, working on efficient large language models. My work keeps asking one question — <i>how much of a model, its memory and its compute do we actually need?</i> — and answers it with sparse attention that scales toward infinite context, KV caches that learn what to forget, mixture-of-experts models compressed by merging and decomposition, and weights quantized down to sub-1-bit.</p>
+        <p>Recently I led <a href="https://arxiv.org/abs/2506.12040">BTC-LLM</a> (ACL 2026), <a href="https://arxiv.org/abs/2604.07853">QaRL</a> (Findings of ACL 2026), <a href="https://arxiv.org/abs/2502.17298">D²-MoE</a>, and our study of the <a href="https://arxiv.org/abs/2611.07605">gating mechanism of KV-cache eviction</a>. I also contributed to <a href="https://github.com/Tencent-Hunyuan/HiLS-Attention">HiLS-Attention</a>, hierarchical sparse attention open-sourced by Tencent Hunyuan.</p>
+      </div>
+
+      <div class="links">
+        <a class="btn" href="{{ site.author.scholar }}" target="_blank" rel="noopener">{% include icon.html name="scholar" %}Scholar</a>
+        <a class="btn" href="{{ site.author.github }}" target="_blank" rel="noopener">{% include icon.html name="github" %}GitHub</a>
+        {% if site.author.email != "" %}<a class="btn" href="mailto:{{ site.author.email }}">{% include icon.html name="mail" %}Email</a>{% endif %}
+        {% if site.author.cv != "" %}<a class="btn" href="{{ site.author.cv | relative_url }}">{% include icon.html name="cv" %}CV</a>{% endif %}
+        {% if site.author.twitter != "" %}<a class="btn" href="{{ site.author.twitter }}" target="_blank" rel="noopener">{% include icon.html name="x" %}X</a>{% endif %}
+        {% if site.author.linkedin != "" %}<a class="btn" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">{% include icon.html name="linkedin" %}LinkedIn</a>{% endif %}
+        {% if site.author.zhihu != "" %}<a class="btn" href="{{ site.author.zhihu }}" target="_blank" rel="noopener">知乎</a>{% endif %}
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Blog {% include icon.html name="arrow" %}</a>
+      </div>
+    </div>
+
+    <aside class="hero-aside">
+      <figure class="qcard" id="qcard">
+        <div class="qcard-head">
+          <span>avatar.jpg</span>
+          <span id="q-dtype">FP16</span>
+        </div>
+        <div class="qcard-img">
+          <img id="q-img" src="{{ '/assets/img/avatar.jpg' | relative_url }}" alt="Avatar of Hao Gu" width="460" height="460">
+          <canvas id="q-canvas" width="460" height="460" aria-hidden="true"></canvas>
+        </div>
+        <div class="qbar" role="radiogroup" aria-label="Quantize my avatar">
+          <button type="button" role="radio" data-bits="16" aria-checked="true">FP16</button>
+          <button type="button" role="radio" data-bits="8">INT8</button>
+          <button type="button" role="radio" data-bits="4">INT4</button>
+          <button type="button" role="radio" data-bits="2">INT2</button>
+          <button type="button" role="radio" data-bits="1">1-bit</button>
+        </div>
+        <figcaption class="qcard-foot"><span id="q-size">1.27 MB</span><span id="q-ratio">quantize me ↑</span></figcaption>
+      </figure>
+
+      <dl class="stats">
+        <div><dt>Citations</dt><dd>{{ stats.citations }}</dd></div>
+        <div><dt>h-index</dt><dd>{{ stats.h_index }}</dd></div>
+        <div><dt>Papers</dt><dd>{{ pubs.size }}</dd></div>
+      </dl>
+      <p class="stats-note">via <a href="{{ site.author.scholar }}" target="_blank" rel="noopener">Google Scholar</a> · {{ stats.updated }}</p>
+
+      <div class="aff">
+        <span class="aff-logo" aria-hidden="true">HK<br>UST</span>
+        <span><b>{{ site.author.affiliation_full }}</b>Efficient LLMs · Hong Kong, China</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= NOW: NEWS + WRITING ================= -->
+<section class="section" id="now">
+  <div class="wrap now-grid">
+    <div class="news">
+      <header class="sec-head">
+        <span class="sec-idx">01</span>
+        <h2 class="sec-title">News</h2>
+      </header>
+      <ul class="log" id="news-log">
+        {% for n in site.data.news %}
+        <li{% if forloop.index > 5 %} class="is-extra"{% endif %}><time>{{ n.date }}</time><span>{{ n.text }}</span></li>
+        {% endfor %}
+      </ul>
+      {% if site.data.news.size > 5 %}
+      <button class="more" id="news-more" type="button" aria-expanded="false">Show all {{ site.data.news.size }} ↓</button>
+      {% endif %}
+    </div>
+
+    <div class="writing">
+      <header class="sec-head">
+        <span class="sec-idx">02</span>
+        <h2 class="sec-title">Writing</h2>
+        <a class="sec-more" href="{{ '/blog/' | relative_url }}">All posts {% include icon.html name="arrow" %}</a>
+      </header>
+      {% if site.posts.size > 0 %}
+      <ol class="post-list">
+        {% for post in site.posts limit: 3 %}
+        <li>
+          <a class="post-item" href="{{ post.url | relative_url }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d, %Y' }}</time>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.description | default: post.excerpt | strip_html | truncate: 150 }}</p>
+          </a>
+        </li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p class="empty">First post coming soon.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESEARCH ================= -->
+<section class="section" id="research">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-idx">03</span>
+      <h2 class="sec-title">Research</h2>
+      <p class="sec-lede">Four threads, one goal: spend fewer bits, FLOPs and bytes of memory per useful token.</p>
+    </header>
+    <div class="themes">
+      {% for t in site.data.themes %}
+      {%- assign n = 0 -%}{%- for p in pubs -%}{%- if p.themes contains t.id -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+      <button class="theme" type="button" data-goto="{{ t.id }}">
+        <span class="theme-art">{% include glyphs/{{ t.id }}.svg %}</span>
+        <span class="theme-sub">{{ t.sub }}</span>
+        <span class="theme-name">{{ t.name }}</span>
+        <span class="theme-blurb">{{ t.blurb }}</span>
+        <span class="theme-foot">{{ n }} papers {% include icon.html name="arrow" %}</span>
+      </button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= PUBLICATIONS ================= -->
+<section class="section" id="publications">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="sec-idx">04</span>
+      <h2 class="sec-title">Publications</h2>
+      <a class="sec-more" href="{{ site.author.scholar }}" target="_blank" rel="noopener">Google Scholar {% include icon.html name="arrow" %}</a>
+    </header>
+
+    <div class="filters" role="toolbar" aria-label="Filter publications">
+      <div class="chips">
+        <button type="button" class="chip is-on" data-filter="all">All <i>{{ pubs.size }}</i></button>
+        {% for t in site.data.themes %}
+        {%- assign n = 0 -%}{%- for p in pubs -%}{%- if p.themes contains t.id -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+        <button type="button" class="chip" data-filter="{{ t.id }}">{{ t.name }} <i>{{ n }}</i></button>
+        {% endfor %}
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="first-only">
+        <span class="switch-ui" aria-hidden="true"></span>
+        First-author only <i>{{ first_n }}</i>
+      </label>
+    </div>
+
+    {% assign groups = pubs | group_by: "year" %}
+    <div class="pubs" id="pubs">
+      {% for g in groups %}
+      <div class="year-group">
+        <div class="year">{% if g.name == 0 or g.name == "0" %}Preprints{% else %}{{ g.name }}{% endif %}</div>
+        <ol class="pub-list">
+          {% for p in g.items %}
+          {%- assign is_pre = false -%}
+          {%- if p.venue contains "arXiv" or p.venue contains "Preprint" -%}{%- assign is_pre = true -%}{%- endif -%}
+          <li class="pub{% if p.lead %} is-first{% endif %}" data-themes="{{ p.themes | join: ' ' }}" data-first="{% if p.lead %}1{% else %}0{% endif %}">
+            <div class="pub-venue">
+              <span class="badge{% if is_pre %} badge-pre{% endif %}" title="{{ p.venue_full }}">{{ p.venue }}</span>
+            </div>
+            <div class="pub-body">
+              <h3 class="pub-title">
+                {% if p.links.paper %}<a href="{{ p.links.paper }}" target="_blank" rel="noopener">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}
+              </h3>
+              <p class="pub-authors">{{ p.authors | replace: "H. Gu", "<b class='me'>Hao Gu</b>" }}</p>
+              <p class="pub-meta">
+                {% if p.lead %}<span class="tag-first">First author</span>{% endif %}
+                {% if p.links.paper %}<a href="{{ p.links.paper }}" target="_blank" rel="noopener">{% if p.links.paper contains 'arxiv' %}arXiv{% else %}Paper{% endif %}</a>{% endif %}
+                {% if p.links.code %}<a href="{{ p.links.code }}" target="_blank" rel="noopener">Code{% if p.stars %} <span class="stars">{% include icon.html name="star" %}{{ p.stars }}</span>{% endif %}</a>{% endif %}
+                {% unless p.links.paper %}<a href="https://scholar.google.com/scholar?q={{ p.title | cgi_escape }}" target="_blank" rel="noopener">Scholar</a>{% endunless %}
+                {% if p.cites %}<span class="cites">{{ p.cites }} citation{% if p.cites != 1 %}s{% endif %}</span>{% endif %}
+              </p>
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endfor %}
+      <p class="empty" id="pubs-empty" hidden>Nothing here yet — try another filter.</p>
+    </div>
+  </div>
+</section>

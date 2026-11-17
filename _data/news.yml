@@ -1,0 +1,17 @@
+# Newest first. `text` accepts inline HTML.
+# Dates below were drafted from arXiv IDs / venue years — please double-check the months.
+
+- date: Nov 2026
+  text: 'Released <a href="https://arxiv.org/abs/2611.07605">The Gating Mechanism of KV Cache Eviction</a>, with <a href="https://github.com/Chooovy/IndexMem">code</a>.'
+- date: Sep 2026
+  text: '<a href="https://arxiv.org/abs/2609.13141">SAS</a> (attention sparsification) and <a href="https://arxiv.org/abs/2609.31631">OMP-MoE</a> (expert pruning) are on arXiv.'
+- date: Jul 2026
+  text: '<a href="https://arxiv.org/abs/2607.02980">HiLS-Attention</a>, hierarchical sparse attention toward infinite context, is out — code open-sourced at <a href="https://github.com/Tencent-Hunyuan/HiLS-Attention">Tencent Hunyuan</a>.'
+- date: May 2026
+  text: '<a href="https://arxiv.org/abs/2605.25475">IndexMem</a>: learned KV-cache eviction with latent memory.'
+- date: "2026"
+  text: 'Four papers accepted to <b>ACL 2026</b> and one to <b>Findings of ACL 2026</b>, including first-author <a href="https://arxiv.org/abs/2506.12040">BTC-LLM</a> and <a href="https://arxiv.org/abs/2604.07853">QaRL</a>.'
+- date: Nov 2025
+  text: 'Two papers accepted to <b>AAAI 2026</b>: <a href="https://arxiv.org/abs/2506.23266">Sub-MoE</a> and Outlier-Guided Model Merging.'
+- date: Feb 2025
+  text: 'Released <a href="https://arxiv.org/abs/2502.17298">D²-MoE</a>, delta decompression for MoE compression — <a href="https://github.com/lliai/D2MoE">code</a>.'

@@ -1,0 +1,66 @@
+# ------------------------------------------------------------
+#  Hao Gu — personal site
+#  Edit the values below; everything on the homepage reads from
+#  here and from _data/*.yml.
+# ------------------------------------------------------------
+
+title: Hao Gu
+description: >-
+  Hao Gu works on efficient large language models at HKUST:
+  sparse attention, KV-cache eviction, MoE compression and low-bit quantization.
+
+# NOTE: a GitHub Pages *user site* is served at <github-username>.github.io.
+# Your username is "Chooovy", so the repo must be named chooovy.github.io
+# unless you rename the account to "marcusguhao" (or attach a custom domain).
+url: "https://marcusguhao.github.io"
+baseurl: ""
+
+author:
+  name: Hao Gu
+  short: hao gu
+  affiliation: HKUST
+  affiliation_full: The Hong Kong University of Science and Technology
+  affiliation_url: https://hkust.edu.hk/
+  email: ""                      # TODO e.g. hgu@connect.ust.hk  (hidden while empty)
+  cv: ""                         # TODO e.g. /assets/file/cv.pdf (hidden while empty)
+  scholar: https://scholar.google.com/citations?user=ozg7axcAAAAJ
+  github: https://github.com/Chooovy
+  twitter: ""                    # optional
+  linkedin: ""                   # optional
+  zhihu: ""                      # optional
+
+# Scholar numbers shown in the hero (update by hand now and then)
+scholar_stats:
+  citations: 237
+  h_index: 8
+  i10_index: 6
+  updated: Nov 2026
+
+timezone: Asia/Hong_Kong
+lang: en
+permalink: /blog/:year/:title/
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  math_engine: null
+  syntax_highlighter_opts:
+    css_class: highlight
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+feed:
+  path: feed.xml
+
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post, math: false }
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .jekyll-cache

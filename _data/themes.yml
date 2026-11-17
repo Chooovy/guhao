@@ -1,0 +1,17 @@
+# Research directions. `id` must match `themes:` in publications.yml.
+- id: long
+  name: Long Context
+  sub: Sparse attention & KV cache
+  blurb: Attention that scales toward infinite context, and caches that learn what to forget.
+- id: moe
+  name: MoE Compression
+  sub: Merging, pruning & decomposition
+  blurb: Shrinking mixture-of-experts models by sharing what experts have in common.
+- id: quant
+  name: Low-bit Models
+  sub: Quantization & QAT
+  blurb: Down to sub-1-bit weights, and quantization-aware RL that stays stable.
+- id: reason
+  name: Efficient Reasoning
+  sub: Shorter thoughts, steadier training
+  blurb: Making reasoning models think less redundantly without thinking worse.
