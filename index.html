@@ -14,7 +14,7 @@ nav: home
       <span>Ph.D. student · HKUST <i>/</i> Research intern · Tencent Hunyuan</span>
     </p>
     <h1 class="hero-name">Hao Gu</h1>
-    <p class="hero-lede">I work on the architecture and pre&#8209;training of large language models — currently, <b>sparse&nbsp;attention</b>.</p>
+    <p class="hero-lede">I work on model architecture and LLM pre&#8209;training, currently focusing on <b>sparse&nbsp;attention</b>.</p>
     <div class="actions">
       <a class="pill pill-dark" href="mailto:{{ site.author.email }}">{% include icon.html name="mail" %}Email</a>
       <a class="pill pill-line" href="{{ site.author.scholar }}" target="_blank" rel="noopener">{% include icon.html name="scholar" %}Scholar</a>
@@ -38,6 +38,7 @@ nav: home
   </div>
 </section>
 
+{% comment %} Statement card hidden for now — delete these comment tags to bring it back.
 <!-- ================= STATEMENT (dark card) ================= -->
 <section class="wrap statement-wrap">
   <figure class="statement">
@@ -49,6 +50,7 @@ nav: home
     </figcaption>
   </figure>
 </section>
+{% endcomment %}
 
 <!-- ================= RESEARCH ================= -->
 <section class="section" id="research">
@@ -57,7 +59,7 @@ nav: home
       <canvas class="orbs" id="orbs" aria-hidden="true"></canvas>
       <header class="sec-head research-head">
         <h2 class="sec-title">Research</h2>
-        <p class="sec-lede">How attention, experts and precision shape what a model can learn — and what it costs to run.</p>
+        <p class="sec-lede">Three threads so far — long context, mixture-of-experts and low-bit models — with sparse attention at the centre.</p>
       </header>
     </div>
     <div class="themes">
