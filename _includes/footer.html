@@ -1,14 +1,17 @@
 <footer class="finale" id="contact">
   <div class="wrap">
-  <div class="finale-inner">
-    <p class="finale-kicker">{{ site.author.name }}</p>
-    <h2 class="finale-title">Let’s build models that<br class="br-lg"> know where to look.</h2>
-    <div class="finale-actions">
-      <a class="pill pill-white" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
-      <button class="pill pill-ghost" type="button" data-wechat>{% include icon.html name="wechat" %}WeChat</button>
-      <a class="pill pill-ghost" href="{{ site.author.twitter }}" target="_blank" rel="noopener">{% include icon.html name="x" %}X</a>
+    <div class="finale-inner" id="finale-card">
+      <canvas class="attn" id="attn" aria-hidden="true"></canvas>
+      <div class="finale-content">
+        <p class="finale-kicker">{{ site.author.name }}</p>
+        <h2 class="finale-title">Let’s build models that<br class="br-lg"> know where to look.</h2>
+        <div class="finale-actions">
+          <a class="pill pill-white" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+          <button class="pill pill-ghost" type="button" data-wechat>{% include icon.html name="wechat" %}WeChat</button>
+          <a class="pill pill-ghost" href="{{ site.author.twitter }}" target="_blank" rel="noopener">{% include icon.html name="x" %}X</a>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
   <div class="wrap footbar">
     <span>© {{ site.time | date: '%Y' }} {{ site.author.name }}</span>

@@ -53,10 +53,13 @@ nav: home
 <!-- ================= RESEARCH ================= -->
 <section class="section" id="research">
   <div class="wrap">
-    <header class="sec-head">
-      <h2 class="sec-title">Research</h2>
-      <p class="sec-lede">How attention, experts and precision shape what a model can learn — and what it costs to run.</p>
-    </header>
+    <div class="research-stage">
+      <canvas class="orbs" id="orbs" aria-hidden="true"></canvas>
+      <header class="sec-head research-head">
+        <h2 class="sec-title">Research</h2>
+        <p class="sec-lede">How attention, experts and precision shape what a model can learn — and what it costs to run.</p>
+      </header>
+    </div>
     <div class="themes">
       {% for t in site.data.themes %}
       {%- assign n = 0 -%}{%- for p in pubs -%}{%- if p.themes contains t.id -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}

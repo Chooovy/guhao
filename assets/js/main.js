@@ -323,4 +323,195 @@
     document.addEventListener('visibilitychange', function () { visible = inView && !document.hidden; start(); });
     var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(build, 150); });
   })();
+
+  /* ---------- shared: run a canvas loop only while it is on screen ---------- */
+  function runVisible(el, draw) {
+    var vis = false, raf = 0;
+    function loop(t) { raf = 0; if (!vis || document.hidden) return; draw(t); raf = requestAnimationFrame(loop); }
+    function kick() { if (!raf && vis && !document.hidden) raf = requestAnimationFrame(loop); }
+    if (reduce) { draw(performance.now()); return; }
+    if (window.IntersectionObserver) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; kick(); }, { rootMargin: '100px' }).observe(el);
+    else { vis = true; kick(); }
+    document.addEventListener('visibilitychange', kick);
+  }
+  function onResize(el, fn) {
+    if (window.ResizeObserver) { var first = true; new ResizeObserver(function () { if (first) { first = false; return; } fn(); }).observe(el); }
+    else addEventListener('resize', fn);
+  }
+
+  /* ---------- research stage: grey dust + rotating dotted spheres ----------
+     One sphere per research theme; hovering a theme card brings its sphere forward. */
+  var orbs = $('#orbs');
+  if (orbs) (function () {
+    var stage = orbs.parentNode, ctx, W, H, dust = [], S = [], m = { x: .5, y: .5, tx: .5, ty: .5, px: -999, py: -999 }, active = -1;
+    var cards = $$('.themes .theme');
+    cards.forEach(function (c, i) {
+      c.addEventListener('mouseenter', function () { active = i; });
+      c.addEventListener('focus', function () { active = i; });
+      c.addEventListener('mouseleave', function () { active = -1; });
+      c.addEventListener('blur', function () { active = -1; });
+    });
+    function fib(n) {
+      var pts = [];
+      for (var i = 0; i < n; i++) {
+        var y = 1 - 2 * (i + .5) / n, r = Math.sqrt(1 - y * y), th = i * 2.399963;
+        pts.push([Math.cos(th) * r, y, Math.sin(th) * r]);
+      }
+      return pts;
+    }
+    function build() {
+      var f = fit(orbs); ctx = f.ctx; W = f.w; H = f.h;
+      var R = rng(21), g = 15; dust = [];
+      for (var y = g / 2; y < H; y += g) for (var x = g / 2; x < W; x += g)
+        if (R() < .82) dust.push({ x: x + (R() - .5) * g * .7, y: y + (R() - .5) * g * .7 });
+      var wide = W >= 760, u = wide ? H : Math.min(W, H);
+      var L = wide
+        ? [{ x: .61, y: .36, r: .25 }, { x: .80, y: .64, r: .31 }, { x: .95, y: .22, r: .2 }]
+        : [{ x: .24, y: .74, r: .2 }, { x: .62, y: .78, r: .26 }, { x: .9, y: .58, r: .17 }];
+      S = L.map(function (o, i) {
+        var rad = o.r * u, n = Math.max(160, Math.min(460, rad * 2.6 | 0));
+        return { cx: o.x * W, cy: o.y * H, r: rad, pts: fib(n), spin: [.16, -.11, .21][i], tilt: [.35, -.25, .5][i], ph: i * 2.1, hl: 0, dim: 1 };
+      });
+    }
+    stage.addEventListener('pointermove', function (e) {
+      var r = orbs.getBoundingClientRect();
+      m.px = e.clientX - r.left; m.py = e.clientY - r.top; m.tx = m.px / r.width; m.ty = m.py / r.height;
+    });
+    stage.addEventListener('pointerleave', function () { m.tx = m.ty = .5; m.px = m.py = -999; });
+
+    function draw(now) {
+      var T = now / 1000;
+      m.x += (m.tx - m.x) * .05; m.y += (m.ty - m.y) * .05;
+      ctx.clearRect(0, 0, W, H);
+      // dust, with a small lens around the pointer
+      ctx.fillStyle = 'rgba(95,99,104,.42)';
+      for (var i = 0; i < dust.length; i++) {
+        var d = dust[i], x = d.x, y = d.y, dx = x - m.px, dy = y - m.py, dd = dx * dx + dy * dy;
+        if (dd < 8100) { var k = 1 - Math.sqrt(dd) / 90, p = k * k * 10 / (Math.sqrt(dd) + 1); x += dx * p; y += dy * p; }
+        ctx.fillRect(x - .6, y - .6, 1.2, 1.2);
+      }
+      for (var s = 0; s < S.length; s++) {
+        var o = S[s];
+        o.hl += ((active === s ? 1 : 0) - o.hl) * .08;
+        o.dim += ((active >= 0 && active !== s ? .35 : 1) - o.dim) * .08;
+        var ay = T * o.spin + o.ph + (m.x - .5) * .7, ax = o.tilt + (m.y - .5) * .5;
+        var cy = Math.cos(ay), sy = Math.sin(ay), cx = Math.cos(ax), sx = Math.sin(ax);
+        var R = o.r * (1 + .025 * Math.sin(T * .8 + o.ph)) * (1 + .1 * o.hl);
+        for (var j = 0; j < o.pts.length; j++) {
+          var P = o.pts[j];
+          var x1 = P[0] * cy + P[2] * sy, z1 = -P[0] * sy + P[2] * cy;
+          var y2 = P[1] * cx - z1 * sx, z2 = P[1] * sx + z1 * cx;
+          var rip = 1 + .05 * o.hl * Math.sin(P[1] * 9 - T * 4);   // hover: a wave runs pole to pole
+          var depth = (z2 + 1) * .5, sz = 1 + depth * 1.5 + o.hl * .5;
+          ctx.globalAlpha = (.22 + .78 * depth) * o.dim;
+          ctx.fillStyle = o.hl > .5 && depth > .6 ? '#1F1F1F' : '#2F5FF0';
+          ctx.fillRect(o.cx + x1 * R * rip - sz / 2, o.cy + y2 * R * rip - sz / 2, sz, sz);
+        }
+      }
+      ctx.globalAlpha = 1;
+    }
+    build();
+    onResize(orbs, build);
+    runVisible(orbs, draw);
+  })();
+
+  /* ---------- footer card: "attention field" ----------
+     Dots live in KV-style blocks. The pointer is the query: it selects the local block plus
+     a few top-k blocks (scores drift with noise), which light up, lean toward the query and
+     receive a pulse along a thin link — sparse attention, drawn. */
+  var attn = $('#attn');
+  if (attn) (function () {
+    var card = attn.parentNode, ctx, W, H, D = [], B = [], cols = 0, BS = 6, gap = 18;
+    var q = { x: 0, y: 0 }, tq = { x: 0, y: 0 }, over = false, nz = makeNoise(9);
+    function build() {
+      var f = fit(attn); ctx = f.ctx; W = f.w; H = f.h;
+      gap = W < 700 ? 15 : 18;
+      var R = rng(13), nx = Math.ceil(W / gap), ny = Math.ceil(H / gap);
+      cols = Math.ceil(nx / BS);
+      var rowsB = Math.ceil(ny / BS); B = []; D = [];
+      for (var b = 0; b < cols * rowsB; b++) B.push({ i: b, sx: 0, sy: 0, n: 0, w: 0, x0: (b % cols) * BS * gap, y0: (b / cols | 0) * BS * gap });
+      for (var j = 0; j < ny; j++) for (var i = 0; i < nx; i++) {
+        var bi = (j / BS | 0) * cols + (i / BS | 0), x = i * gap + gap / 2 + (R() - .5) * gap * .5, y = j * gap + gap / 2 + (R() - .5) * gap * .5;
+        D.push({ hx: x, hy: y, b: bi, s: R() });
+        B[bi].sx += x; B[bi].sy += y; B[bi].n++;
+      }
+      B.forEach(function (b) { b.cx = b.sx / b.n; b.cy = b.sy / b.n; });
+      q.x = tq.x = W * .7; q.y = tq.y = H * .5;
+    }
+    card.addEventListener('pointermove', function (e) {
+      var r = attn.getBoundingClientRect(); tq.x = e.clientX - r.left; tq.y = e.clientY - r.top; over = true;
+    });
+    card.addEventListener('pointerleave', function () { over = false; });
+
+    function draw(now) {
+      var T = now / 1000, i, b, d;
+      if (!over) { tq.x = W * (.5 + .4 * Math.cos(T * .21)); tq.y = H * (.5 + .34 * Math.sin(T * .34)); }
+      var k = over ? .1 : .03; q.x += (tq.x - q.x) * k; q.y += (tq.y - q.y) * k;
+      // score blocks: mostly content (noise), a little locality → retrieval-like top-k
+      var span = Math.max(W, H), sc = [];
+      for (i = 0; i < B.length; i++) {
+        b = B[i];
+        var dist = Math.hypot(q.x - b.cx, q.y - b.cy) / span;
+        sc.push([-.9 * dist + nz(b.i * .61, T * .12, 3.7) * .9, i]);
+      }
+      sc.sort(function (a, c) { return c[0] - a[0]; });
+      var sel = {}, K = W < 700 ? 4 : 6;
+      for (i = 0; i < K && i < sc.length; i++) sel[sc[i][1]] = 1;
+      var qi = Math.min(B.length - 1, Math.floor(q.y / (BS * gap)) * cols + Math.floor(q.x / (BS * gap)));
+      if (qi >= 0) { sel[qi] = 1; if (qi % cols) sel[qi - 1] = 1; }   // local window: own block + the one before
+      for (i = 0; i < B.length; i++) B[i].w += ((sel[i] ? 1 : 0) - B[i].w) * .05;
+
+      ctx.clearRect(0, 0, W, H);
+      // selected blocks: faint frame
+      for (i = 0; i < B.length; i++) {
+        b = B[i]; if (b.w < .03) continue;
+        ctx.strokeStyle = 'rgba(138,180,248,' + (.16 * b.w) + ')'; ctx.lineWidth = 1;
+        ctx.strokeRect(b.x0 + 3, b.y0 + 3, BS * gap - 6, BS * gap - 6);
+      }
+      // links + pulses
+      for (i = 0; i < B.length; i++) {
+        b = B[i]; if (b.w < .03) continue;
+        var mx = (q.x + b.cx) / 2, my = (q.y + b.cy) / 2, vx = b.cx - q.x, vy = b.cy - q.y;
+        var cxp = mx - vy * .18, cyp = my + vx * .18;
+        ctx.strokeStyle = 'rgba(138,180,248,' + (.28 * b.w) + ')'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(b.cx, b.cy); ctx.quadraticCurveTo(cxp, cyp, q.x, q.y); ctx.stroke();
+        var u = (T * .55 + b.i * .137) % 1, iu = 1 - u;                // value flows block → query
+        var px = iu * iu * b.cx + 2 * iu * u * cxp + u * u * q.x, py = iu * iu * b.cy + 2 * iu * u * cyp + u * u * q.y;
+        ctx.globalAlpha = b.w; ctx.fillStyle = '#C6DAFC';
+        ctx.beginPath(); ctx.arc(px, py, 1.8, 0, 6.2832); ctx.fill(); ctx.globalAlpha = 1;
+      }
+      // dots
+      ctx.fillStyle = 'rgba(113,137,255,.32)';
+      var lit = [];
+      for (i = 0; i < D.length; i++) {
+        d = D[i];
+        var x = d.hx + nz(d.hx * .004, d.hy * .004, T * .1) * 5, y = d.hy + nz(d.hx * .004 + 40, d.hy * .004, T * .1) * 5;
+        var w = B[d.b].w;
+        if (w < .05) { ctx.fillRect(x - .65, y - .65, 1.3, 1.3); continue; }
+        var ax = q.x - x, ay = q.y - y, al = Math.sqrt(ax * ax + ay * ay) || 1, pull = Math.min(16, al * .09) * w;
+        lit.push(x + ax / al * pull, y + ay / al * pull, ax / al, ay / al, w * (.6 + .4 * d.s));
+      }
+      ctx.lineCap = 'round';
+      for (i = 0; i < lit.length; i += 5) {
+        var lw = lit[i + 4], len = 1.5 + 5 * lw;
+        ctx.strokeStyle = 'rgb(' + (113 + 85 * lw | 0) + ',' + (137 + 83 * lw | 0) + ',255)';
+        ctx.globalAlpha = .3 + .7 * lw; ctx.lineWidth = 1.3 + .7 * lw;
+        ctx.beginPath(); ctx.moveTo(lit[i] - lit[i + 2] * len / 2, lit[i + 1] - lit[i + 3] * len / 2);
+        ctx.lineTo(lit[i] + lit[i + 2] * len / 2, lit[i + 1] + lit[i + 3] * len / 2); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      // the query
+      var pr = (T * .8) % 1;
+      ctx.strokeStyle = 'rgba(255,255,255,' + (.5 * (1 - pr)) + ')'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(q.x, q.y, 6 + pr * 22, 0, 6.2832); ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(q.x, q.y, 3, 0, 6.2832); ctx.fill();
+      // keep the copy readable
+      var g = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.min(W, H) * .75);
+      g.addColorStop(0, 'rgba(19,19,20,.72)'); g.addColorStop(.6, 'rgba(19,19,20,.35)'); g.addColorStop(1, 'rgba(19,19,20,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+    build();
+    onResize(attn, build);
+    runVisible(attn, draw);
+  })();
 })();

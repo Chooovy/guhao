@@ -145,6 +145,12 @@ b, strong { font-weight: 600; }
 .sec-title { margin: 0; font: 400 clamp(40px, 5vw, 64px)/1.02 var(--sans); letter-spacing: -.035em; }
 .sec-lede { margin: 16px 0 0; max-width: 46ch; font-size: 20px; line-height: 1.45; color: var(--ink-2); }
 
+/* ---------- research stage: dotted spheres ---------- */
+.research-stage { position: relative; min-height: 440px; display: flex; align-items: center; margin-bottom: 24px; }
+.orbs { position: absolute; inset: 0; width: 100%; height: 100%; }
+.research-head { position: relative; max-width: 44%; margin-bottom: 0; }
+.research-head .sec-lede { text-shadow: 0 0 12px #fff, 0 0 4px #fff; }
+
 /* ---------- research cards ---------- */
 .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .theme {
@@ -228,9 +234,12 @@ b, strong { font-weight: 600; }
 /* ---------- finale: black CTA card ---------- */
 .finale { margin-top: clamp(96px, 12vw, 160px); }
 .finale-inner {
+  position: relative; overflow: hidden; isolation: isolate;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   min-height: 420px; padding: 72px var(--gutter); border-radius: var(--r-lg); background: var(--black); color: #fff;
 }
+.attn { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.finale-content { position: relative; display: flex; flex-direction: column; align-items: center; }
 .finale-kicker { margin: 0 0 18px; font: 500 16px/1 var(--sans); color: var(--on-black-2); }
 .finale-title { margin: 0; font: 400 clamp(38px, 5.6vw, 76px)/1.04 var(--sans); letter-spacing: -.04em; }
 .finale-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 40px; }
@@ -329,6 +338,8 @@ b, strong { font-weight: 600; }
 }
 @media (max-width: 760px) {
   .nav { display: none; }
+  .research-stage { min-height: 520px; align-items: flex-start; }
+  .research-head { max-width: none; }
   .br-lg { display: none; }
   .nav-cta { margin-left: auto; }
   .hero-inner { min-height: 640px; }
